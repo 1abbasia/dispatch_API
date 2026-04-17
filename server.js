@@ -1,27 +1,17 @@
 require('dotenv').config();
-const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
-const Instructor = require('./models/Instructor');
-const instructorRoutes = require('./routes/instructorRoutes');
-const assignmentRoutes = require('./routes/assignmentRoutes');
-
+const connectDB = require('./config/db');
 
 const app = express();
+connectDB();
 
-// Middleware
 app.use(cors());
-app.use(express.json()); // Allows us to parse JSON data
-app.use('/api', instructorRoutes);
-app.use('/api', assignmentRoutes);
-// Connect to MongoDB
-mongoose.connect(process.env.MongoURI)
-  .then(() => console.log('✅ Connected to MongoDB Atlas'))
-  .catch((err) => console.error('❌ MongoDB Connection Error:', err));
+app.use(express.json());
 
-  const PORT = process.env.PORT || 3000;
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/assignments', require('./routes/assignmentRoutes'));
+app.use('/api/instructors', require('./routes/instructorRoutes'));
 
-  // We add '0.0.0.0' to tell it to listen to EVERYTHING on this machine
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 API IS LIVE: http://127.0.0.1:${PORT}/api/stats`);
-  });
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`🚀 Teacher-Dispatch API running on port ${PORT}`));
