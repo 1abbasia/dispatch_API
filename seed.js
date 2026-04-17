@@ -1,133 +1,31 @@
+/**
+ * FILE: seed.js
+ * DESCRIPTION: Robust seed script for Demo Day. 
+ * Includes 15 Instructors and 20 Assignments.
+ */
 require('dotenv').config();
 const mongoose = require('mongoose');
 const Instructor = require('./models/Instructor');
 const Assignment = require('./models/Assignment');
 
 const instructors = [
-  {
-    name: "Alex Rivers",
-    email: "alex@stemkids.com",
-    skills: ["Robotics", "Python"],
-    boroughs: ["Brooklyn", "Manhattan"],
-    isFingerprinted: true,
-    hasInsurance: true,
-    availability: {
-      monday: [{ start: 900, end: 1200 }, { start: 1400, end: 1700 }],
-      tuesday: [{ start: 900, end: 1700 }]
-    }
-  },
-  {
-    name: "Sam Chen",
-    email: "sam@stemkids.com",
-    skills: ["Chess", "Math"],
-    boroughs: ["Queens", "Brooklyn"],
-    isFingerprinted: true,
-    hasInsurance: false,
-    availability: {
-      wednesday: [{ start: 1300, end: 1800 }],
-      friday: [{ start: 900, end: 1500 }]
-    }
-  },
-  {
-    name: "Jordan Smith",
-    email: "jordan@stemkids.com",
-    skills: ["Python", "Web Development"],
-    boroughs: ["The Bronx", "Manhattan"],
-    isFingerprinted: false,
-    hasInsurance: true,
-    availability: {
-      monday: [{ start: 1000, end: 1600 }],
-      thursday: [{ start: 1000, end: 1600 }]
-    }
-  },
-  {
-    name: "Taylor Vance",
-    email: "taylor@stemkids.com",
-    skills: ["Robotics", "Math"],
-    boroughs: ["Brooklyn", "Queens"],
-    isFingerprinted: true,
-    hasInsurance: true,
-    availability: {
-      tuesday: [{ start: 900, end: 1500 }],
-      thursday: [{ start: 900, end: 1500 }]
-    }
-  },
-  {
-    name: "Morgan Lee",
-    email: "morgan@stemkids.com",
-    skills: ["Chess", "Web Development"],
-    boroughs: ["Manhattan", "The Bronx"],
-    isFingerprinted: true,
-    hasInsurance: true,
-    availability: {
-      monday: [{ start: 1200, end: 1800 }],
-      wednesday: [{ start: 1200, end: 1800 }]
-    }
-  },
-  {
-    name: "Casey Zhang",
-    email: "casey@stemkids.com",
-    skills: ["Python", "Robotics"],
-    boroughs: ["Staten Island", "Brooklyn"],
-    isFingerprinted: false,
-    hasInsurance: false,
-    availability: {
-      friday: [{ start: 900, end: 1700 }],
-      saturday: [{ start: 1000, end: 1400 }]
-    }
-  },
-  {
-    name: "Riley Cooper",
-    email: "riley@stemkids.com",
-    skills: ["Math", "Chess"],
-    boroughs: ["Queens", "Manhattan"],
-    isFingerprinted: true,
-    hasInsurance: true,
-    availability: {
-      tuesday: [{ start: 1400, end: 1800 }],
-      thursday: [{ start: 1400, end: 1800 }]
-    }
-  },
-  {
-    name: "Jamie Lopez",
-    email: "jamie@stemkids.com",
-    skills: ["Web Development", "Python"],
-    boroughs: ["The Bronx", "Queens"],
-    isFingerprinted: true,
-    hasInsurance: true,
-    availability: {
-      monday: [{ start: 800, end: 1200 }],
-      wednesday: [{ start: 800, end: 1200 }]
-    }
-  },
-  {
-    name: "Skyler Bell",
-    email: "skyler@stemkids.com",
-    skills: ["Robotics"],
-    boroughs: ["Brooklyn", "Manhattan", "Queens"],
-    isFingerprinted: true,
-    hasInsurance: false,
-    availability: {
-      friday: [{ start: 1300, end: 1800 }]
-    }
-  },
-  {
-    name: "Quinn Moore",
-    email: "quinn@stemkids.com",
-    skills: ["Math", "Python"],
-    boroughs: ["Manhattan"],
-    isFingerprinted: false,
-    hasInsurance: true,
-    availability: {
-      tuesday: [{ start: 900, end: 1200 }],
-      friday: [{ start: 900, end: 1200 }]
-    }
-  }
-  
-
-  
+  { name: "Alex Rivers", email: "alex@stemkids.com", password: "password123", skills: ["Robotics", "Python"], boroughs: ["Brooklyn", "Manhattan"], isFingerprinted: true, hasInsurance: true },
+  { name: "Sam Chen", email: "sam@stemkids.com", password: "password123", skills: ["Chess", "Math"], boroughs: ["Queens", "Brooklyn"], isFingerprinted: true, hasInsurance: false },
+  { name: "Jordan Smith", email: "jordan@stemkids.com", password: "password123", skills: ["Python", "Web Development"], boroughs: ["The Bronx", "Manhattan"], isFingerprinted: false, hasInsurance: true },
+  { name: "Taylor Vance", email: "taylor@stemkids.com", password: "password123", skills: ["Robotics", "Math"], boroughs: ["Brooklyn", "Queens"], isFingerprinted: true, hasInsurance: true },
+  { name: "Morgan Lee", email: "morgan@stemkids.com", password: "password123", skills: ["Chess", "Web Development"], boroughs: ["Manhattan", "The Bronx"], isFingerprinted: true, hasInsurance: true },
+  { name: "Casey Zhang", email: "casey@stemkids.com", password: "password123", skills: ["Python", "Robotics"], boroughs: ["Staten Island", "Brooklyn"], isFingerprinted: false, hasInsurance: false },
+  { name: "Riley Cooper", email: "riley@stemkids.com", password: "password123", skills: ["Math", "Chess"], boroughs: ["Queens", "Manhattan"], isFingerprinted: true, hasInsurance: true },
+  { name: "Jamie Lopez", email: "jamie@stemkids.com", password: "password123", skills: ["Web Development", "Python"], boroughs: ["The Bronx", "Queens"], isFingerprinted: true, hasInsurance: true },
+  { name: "Skyler Bell", email: "skyler@stemkids.com", password: "password123", skills: ["Robotics"], boroughs: ["Brooklyn", "Manhattan", "Queens"], isFingerprinted: true, hasInsurance: false },
+  { name: "Quinn Moore", email: "quinn@stemkids.com", password: "password123", skills: ["Math", "Python"], boroughs: ["Manhattan"], isFingerprinted: false, hasInsurance: true },
+  { name: "Avery Brooks", email: "avery@stemkids.com", password: "password123", skills: ["Lego Engineering"], boroughs: ["Brooklyn"], isFingerprinted: true, hasInsurance: true },
+  { name: "Charlie Day", email: "charlie@stemkids.com", password: "password123", skills: ["Python"], boroughs: ["Queens"], isFingerprinted: true, hasInsurance: true },
+  { name: "Parker Reed", email: "parker@stemkids.com", password: "password123", skills: ["Math"], boroughs: ["Manhattan"], isFingerprinted: true, hasInsurance: true },
+  { name: "Dakota Sky", email: "dakota@stemkids.com", password: "password123", skills: ["Robotics"], boroughs: ["The Bronx"], isFingerprinted: false, hasInsurance: true },
+  { name: "Emerson Lake", email: "emerson@stemkids.com", password: "password123", skills: ["Web Development"], boroughs: ["Brooklyn"], isFingerprinted: true, hasInsurance: true }
 ];
-//ffa
+
 const assignments = [
     { schoolName: "P.S. 123", borough: "Brooklyn", dayOfWeek: "monday", startTime: 1500, endTime: 1700, revenueValue: 200, status: "Open" },
     { schoolName: "P.S. 505", borough: "Manhattan", dayOfWeek: "tuesday", startTime: 1400, endTime: 1600, revenueValue: 250, status: "Open" },
@@ -138,27 +36,35 @@ const assignments = [
     { schoolName: "Eagle Academy", borough: "The Bronx", dayOfWeek: "tuesday", startTime: 1500, endTime: 1700, revenueValue: 180, status: "Open" },
     { schoolName: "P.S. 88", borough: "Queens", dayOfWeek: "friday", startTime: 900, endTime: 1100, revenueValue: 250, status: "Open" },
     { schoolName: "Gateway School", borough: "Staten Island", dayOfWeek: "friday", startTime: 1400, endTime: 1600, revenueValue: 400, status: "Open" },
-    { schoolName: "MS 442", borough: "Brooklyn", dayOfWeek: "wednesday", startTime: 1430, endTime: 1630, revenueValue: 210, status: "Open" }
+    { schoolName: "MS 442", borough: "Brooklyn", dayOfWeek: "wednesday", startTime: 1430, endTime: 1630, revenueValue: 210, status: "Open" },
+    { schoolName: "P.S. 11", borough: "Manhattan", dayOfWeek: "monday", startTime: 900, endTime: 1100, revenueValue: 150, status: "Open" },
+    { schoolName: "Aviation High", borough: "Queens", dayOfWeek: "thursday", startTime: 1300, endTime: 1500, revenueValue: 350, status: "Open" },
+    { schoolName: "Stuyvesant High", borough: "Manhattan", dayOfWeek: "wednesday", startTime: 1500, endTime: 1700, revenueValue: 280, status: "Open" },
+    { schoolName: "P.S. 24", borough: "The Bronx", dayOfWeek: "thursday", startTime: 1400, endTime: 1600, revenueValue: 190, status: "Open" },
+    { schoolName: "Brooklyn Friends", borough: "Brooklyn", dayOfWeek: "tuesday", startTime: 1530, endTime: 1730, revenueValue: 450, status: "Open" },
+    // A few already "Staffed" jobs to make the dashboard look real
+    { schoolName: "Metropolitan HS", borough: "Manhattan", dayOfWeek: "monday", startTime: 1300, endTime: 1500, revenueValue: 200, status: "Staffed" },
+    { schoolName: "P.S. 9", borough: "Brooklyn", dayOfWeek: "wednesday", startTime: 1400, endTime: 1600, revenueValue: 220, status: "Staffed" },
+    { schoolName: "Queens High", borough: "Queens", dayOfWeek: "friday", startTime: 1000, endTime: 1200, revenueValue: 300, status: "Staffed" },
+    { schoolName: "Bronx Prep", borough: "The Bronx", dayOfWeek: "tuesday", startTime: 900, endTime: 1100, revenueValue: 180, status: "Staffed" },
+    { schoolName: "Island Academy", borough: "Staten Island", dayOfWeek: "monday", startTime: 1400, endTime: 1600, revenueValue: 500, status: "Staffed" }
   ];
 
 const seedDB = async () => {
     try {
-      // 1. Connect
       await mongoose.connect(process.env.MongoURI);
       console.log("Connected to Atlas for seeding... ✅");
   
-      // 2. Clear Old Data
-    //   await Instructor.deleteMany({});
-    //   await Assignment.deleteMany({});
-    //   console.log("Old data cleared. 🧹");
+      // Clear Old Data - UNCOMMENTED FOR FRESH START
+      await Instructor.deleteMany({});
+      await Assignment.deleteMany({});
+      console.log("Old data cleared. 🧹");
   
-      // 3. Seed Instructors
       await Instructor.insertMany(instructors);
-      console.log("10 Instructors seeded successfully! 🚀");
+      console.log("15 Instructors seeded! 🚀");
   
-      // 4. Seed Assignments
       await Assignment.insertMany(assignments);
-      console.log("10 Assignments seeded successfully! 💰");
+      console.log("20 Assignments seeded! 💰");
   
       console.log("Seeding Complete. Press Ctrl+C to exit.");
       process.exit();
