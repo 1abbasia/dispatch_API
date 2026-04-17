@@ -11,5 +11,4 @@ const AssignmentSchema = new mongoose.Schema({
   assignedInstructor: { type: mongoose.Schema.Types.ObjectId, ref: 'Instructor', default: null }
 });
 
-// CRITICAL: Export the MODEL, not the SCHEMA
 module.exports = mongoose.model('Assignment', AssignmentSchema);
