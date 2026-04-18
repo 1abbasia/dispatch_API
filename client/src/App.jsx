@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginForm from './components/LoginForm';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminInstructors from './pages/AdminInstructors';
 import InstructorPortal from './pages/InstructorPortal';
 
 export default function App() {
@@ -17,6 +18,14 @@ export default function App() {
             element={
               <ProtectedRoute role="admin">
                 <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/instructors"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminInstructors />
               </ProtectedRoute>
             }
           />

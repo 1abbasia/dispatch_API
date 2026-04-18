@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   DollarSign, Briefcase, Users, LayoutDashboard,
   ClipboardList, Settings, LogOut, TrendingUp, ChevronRight,
@@ -59,19 +59,19 @@ function StatusBadge({ status }) {
 }
 
 const NAV = [
-  { icon: LayoutDashboard, label: 'Dashboard', key: 'dashboard' },
-  { icon: ClipboardList, label: 'Assignments', key: 'assignments' },
-  { icon: Users, label: 'Instructors', key: 'instructors' },
-  { icon: Settings, label: 'Settings', key: 'settings' },
+  { icon: LayoutDashboard, label: 'Dashboard',  path: '/admin' },
+  { icon: ClipboardList,   label: 'Assignments', path: null },
+  { icon: Users,           label: 'Instructors', path: '/admin/instructors' },
+  { icon: Settings,        label: 'Settings',    path: null },
 ];
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [stats, setStats] = useState(null);
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeNav, setActiveNav] = useState('dashboard');
   const [toast, setToast] = useState('');
 
   useEffect(() => {
@@ -92,9 +92,9 @@ export default function AdminDashboard() {
     navigate('/login');
   }
 
-  function handleNavClick(key) {
-    if (key === 'dashboard') { setActiveNav('dashboard'); return; }
-    setToast(`${key.charAt(0).toUpperCase() + key.slice(1)} — Coming Soon`);
+  function handleNavClick(path, label) {
+    if (path) { navigate(path); return; }
+    setToast(`${label} — Coming Soon`);
   }
 
   return (
@@ -116,21 +116,22 @@ export default function AdminDashboard() {
         </div>
 
         <nav className="flex-1 px-3 py-4 space-y-0.5">
-          {NAV.map(({ icon: Icon, label, key }) => (
-            <button
-              key={key}
-              onClick={() => handleNavClick(key)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                activeNav === key
-                  ? 'bg-indigo-600 text-white'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <Icon className="w-4 h-4" />
-              {label}
-              {activeNav === key && <ChevronRight className="w-3 h-3 ml-auto opacity-60" />}
-            </button>
-          ))}
+          {NAV.map(({ icon: Icon, label, path }) => {
+            const active = path && location.pathname === path;
+            return (
+              <button
+                key={label}
+                onClick={() => handleNavClick(path, label)}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  active ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                {label}
+                {active && <ChevronRight className="w-3 h-3 ml-auto opacity-60" />}
+              </button>
+            );
+          })}
         </nav>
 
         <div className="px-3 py-4 border-t border-slate-800">

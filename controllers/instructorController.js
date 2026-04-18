@@ -1,6 +1,17 @@
 const Assignment = require('../models/Assignment');
 const Instructor = require('../models/Instructor');
 
+exports.getAllInstructors = async (req, res) => {
+  try {
+    const instructors = await Instructor.find({ isActive: true })
+      .select('name email specialty bio skills boroughs availability isFingerprinted hasInsurance')
+      .lean();
+    res.json(instructors);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 exports.getStats = async (req, res) => {
   try {
     const [unstaffedJobs, activeInstructorCount] = await Promise.all([

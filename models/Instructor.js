@@ -20,7 +20,9 @@ const InstructorSchema = new mongoose.Schema({
     sunday: [{ start: Number, end: Number }]
   },
   isActive: { type: Boolean, default: true },
-  role: { type: String, enum: ['instructor', 'admin'], default: 'instructor' }
+  role: { type: String, enum: ['instructor', 'admin'], default: 'instructor' },
+  specialty: { type: String, default: '' },
+  bio: { type: String, default: '' }
 });
 
 InstructorSchema.pre('save', async function() {
