@@ -2,14 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginForm from './components/LoginForm';
-
-function AdminDashboard() {
-  return <div className="p-8 text-slate-900">Admin Dashboard — Strike 3 coming.</div>;
-}
-
-function InstructorPortal() {
-  return <div className="p-8 text-slate-900">Instructor Portal — Strike 3 coming.</div>;
-}
+import AdminDashboard from './pages/AdminDashboard';
+import InstructorPortal from './pages/InstructorPortal';
 
 export default function App() {
   return (
